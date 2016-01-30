@@ -5,9 +5,10 @@ using System.Linq;
 
 public class TribesMan : MonoBehaviour
 {
-    //GameObject with sprite assets
     [SerializeField]
-    string[] BaseMovements;
+    private Sprite[] sprites;
+    [SerializeField]
+    private string[] BaseMovements;
     [SerializeField]
     private string[] LearnedMovement = new string[MovementLimit];
     [SerializeField]
@@ -18,6 +19,11 @@ public class TribesMan : MonoBehaviour
     private GameObject areaObject;
     [SerializeField]
     private string[] GoalRitual;
+    [SerializeField]
+    private int interval = 200;
+    private int wait = 200;
+    //Constants for movement strings and sprite for
+    //easier reading
     private const int MovementLimit = 6;
     private const string Ymove = "y";
     private const string Mmove = "m";
@@ -25,10 +31,21 @@ public class TribesMan : MonoBehaviour
     private const string Amove = "a";
     private const string jump = "j";
     private const string crouch = "t";
+    private const int YSprite = 0;
+    private const int MSprite = 1;
+    private const int CSprite = 2;
+    private const int ASprite = 3;
+    private const int JumpSprite = 4;
+    private const int CrouchSprite = 5;
+    private const int NeturalSprite = 6;
+    //String to check only for certain key values
     private string[] allowedkeys = { Ymove, Mmove, Cmove, Amove, jump, crouch };
     private Transform tribesman = null;
     private LearningArea area = null;
     private GameObject player = null;
+    private SpriteRenderer TribeSprite;
+    private int PatternCounter;
+
     
     void Start()
     {
@@ -46,6 +63,11 @@ public class TribesMan : MonoBehaviour
         {
             player = GameObject.FindWithTag("Player");
         }
+
+        if(TribeSprite == null)
+        {
+            TribeSprite = gameObject.GetComponent<SpriteRenderer>();
+        }
     }
     
 	// Update is called once per frame
@@ -54,12 +76,72 @@ public class TribesMan : MonoBehaviour
         if (area.isLearning == false && BaseMovements.Length != 0)
         {
             player.GetComponentInChildren<BasicPlayer>().enabled = true;
-            //StartCoroutine(doBaseMovement());
+            if ( wait <= 0)
+            {
+                wait = interval;
+
+                if (BaseMovements[PatternCounter].ToLower() == Ymove)
+                {
+                    TribeSprite.sprite = sprites[YSprite];
+                    PatternCounter++;
+                }
+
+                else if (BaseMovements[PatternCounter].ToLower() == Mmove)
+                {
+                    Debug.Log("M");
+                    TribeSprite.sprite = sprites[MSprite];
+                    PatternCounter++;
+                }
+
+                else if (BaseMovements[PatternCounter].ToLower() == Cmove)
+                {
+                    Debug.Log("C");
+                    TribeSprite.sprite = sprites[CSprite];
+                    PatternCounter++;
+                }
+
+                else if (BaseMovements[PatternCounter].ToLower() == Amove)
+                {
+                    Debug.Log("A");
+                    TribeSprite.sprite = sprites[ASprite];
+                    PatternCounter++;
+                }
+
+                else if (BaseMovements[PatternCounter].ToLower() == jump)
+                {
+                    Debug.Log("J");
+                    //TribeSprite.sprite = sprites[JumpSprite];
+                    PatternCounter++;
+                }
+
+                else if (BaseMovements[PatternCounter].ToLower() == crouch)
+                {
+                    Debug.Log("CR");
+                    //TribeSprite.sprite = sprites[CrouchSprite];
+                    PatternCounter++;
+                }
+
+                else
+                {
+                    Debug.LogError("This is no known movement");
+                }
+
+                if (PatternCounter >= BaseMovements.Length)
+                {
+                    PatternCounter = 0;
+                }
+            }
+
+            else
+            {
+                wait--;
+            }
         }
 
        else if (area.isLearning == true && BaseMovements.Length != 0)
        {
             player.GetComponentInChildren<BasicPlayer>().enabled = false;
+            TribeSprite.sprite = sprites[NeturalSprite];
             doLearning();
        }
 
@@ -69,50 +151,6 @@ public class TribesMan : MonoBehaviour
        }
 
 	}
-
-    IEnumerator doBaseMovement()
-    {
-        for (int i = 0; i < BaseMovements.Length; i++)
-        {
-            if (BaseMovements[i].ToLower() == Ymove)
-            {
-                Debug.Log("Y");
-            }
-
-            else if (BaseMovements[i].ToLower() == Mmove)
-            {
-                Debug.Log("M");
-            }
-
-            else if (BaseMovements[i].ToLower() == Cmove)
-            {
-                Debug.Log("C");
-            }
-
-            else if (BaseMovements[i].ToLower() == Amove)
-            {
-                Debug.Log("A");
-            }
-
-            else if (BaseMovements[i].ToLower() == jump)
-            {
-                Debug.Log("J");
-            }
-
-            else if (BaseMovements[i].ToLower() == crouch)
-            {
-                Debug.Log("CR");
-            }
-
-            else
-            {
-                Debug.LogError("This is no known movement");
-            }
-
-        }
-
-        yield return new WaitForSeconds(1f);
-    }
 
      public void doLearning()
     {

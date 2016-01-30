@@ -6,6 +6,9 @@ public class FollowBillboard : MonoBehaviour {
 	public GameObject myCamera;
 
 	void Start() {
+		if (myCamera == null) {
+			myCamera = GameObject.FindWithTag ("Player");
+		}
 	}
 
 	void Update()

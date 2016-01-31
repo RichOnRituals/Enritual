@@ -22,13 +22,6 @@ public class TribesMan : MonoBehaviour
     //Constants for movement strings and sprite for
     //easier reading
     private const int MovementLimit = 10;
-    private const string Ymove = "1";
-    private const string Mmove = "2";
-    private const string Cmove = "3";
-    private const string Amove = "4";
-    private const string jump =  "5";
-	private const string crouch = "6";
-    private const string netural = "0";
 
 	private const int NeutralSprite = 0;
     private const int YSprite = 1;
@@ -37,6 +30,8 @@ public class TribesMan : MonoBehaviour
     private const int ASprite = 4;
     private const int JumpSprite = 5;
     private const int CrouchSprite = 6;
+
+	public bool isComplete;
 
     private LearningArea area = null;
     private GameObject player = null;
@@ -168,8 +163,8 @@ public class TribesMan : MonoBehaviour
 				print ("new pattern:");
 				print (LearnedMovement);
                 BaseMovements = LearnedMovement;
-				// check if BaseMovements = GoalRitual, and play sound if correct, set "complete" to true
-				// else play bad sound, set "complete" to false
+				// check if BaseMovements = GoalRitual, and play sound if correct, set isComplete to true
+				// else play bad sound, set isComplete to false
             }
         }
 

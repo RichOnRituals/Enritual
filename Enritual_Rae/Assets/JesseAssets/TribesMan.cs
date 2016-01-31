@@ -141,7 +141,9 @@ public class TribesMan : MonoBehaviour
        if (shouldLearn)
 		{
 			if (LearnedMovement.Count == 0) {
-				//show light
+                Transform light = transform.Find("LearningIcon");
+                light.gameObject.SetActive(true);
+             
 			}
 			print ("Learned:" + lastPlayerState.ToString());
             LearnedMovement.Add(lastPlayerState.ToString());
@@ -158,7 +160,9 @@ public class TribesMan : MonoBehaviour
         if(isLearning)
 		{
 			print ("Ending learning");
-			if (LearnedMovement != null && LearnedMovement.Count > 0)
+            Transform light = transform.Find("LearningIcon");
+            light.gameObject.SetActive(false);
+            if (LearnedMovement != null && LearnedMovement.Count > 0)
             {
 				print ("new pattern:");
 				print (LearnedMovement);

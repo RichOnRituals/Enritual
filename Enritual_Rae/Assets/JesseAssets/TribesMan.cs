@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class TribesMan : MonoBehaviour
+public class TribesMan : MonoBehaviour, ICompletionTrigger
 {
     [SerializeField]
     private Sprite[] sprites;
@@ -173,11 +173,17 @@ public class TribesMan : MonoBehaviour
 
     void startLearning()
     {
+		isComplete = true;
 		print ("Starting learning");
 		TimeInNeutral = 0;
         LearnedMovement = new List<string>();
         isLearning = true;
         TribeSprite.sprite = sprites[NeutralSprite];
     }
+
+	// this method tells the event (like Rain) whether or not this TribesMan has been completed (learned the ritual)
+	public bool IsComplete() {
+		return isComplete;
+	}
 
 }

@@ -89,7 +89,10 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 				if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.y.ToString()) {
 					TribeSprite.sprite = sprites[YSprite];
 					if (PatternSound[0] != null) {
-						PatternSound[0].Play();
+                        if (PatternSound[0].isPlaying == false)
+                        {
+                            PatternSound[0].Play();
+                        }
 					}
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.m.ToString()) {
 					TribeSprite.sprite = sprites[MSprite];

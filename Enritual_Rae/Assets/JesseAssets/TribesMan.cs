@@ -18,6 +18,12 @@ public class TribesMan : MonoBehaviour
     private int interval = 200;
     [SerializeField]
     private float MaxInNetural = 4.0f;
+    [SerializeField]
+    private AudioSource IncorrectRitualSound;
+    [SerializeField]
+    private AudioSource CorrectRitualSound;
+    [SerializeField]
+    private List<AudioSource> PatternSound;
     private int wait = 0;
     //Constants for movement strings and sprite for
     //easier reading
@@ -167,10 +173,28 @@ public class TribesMan : MonoBehaviour
 				print ("new pattern:");
 				print (LearnedMovement);
                 BaseMovements = LearnedMovement;
+
+                if (BaseMovements.Count != GoalRitual.Count)
+                {
+                    IncorrectRitualSound.Play();
+                }
+
+                else
+                {
+                    if (BaseMovements.SequenceEqual(GoalRitual) == false)
+                    {
+                        IncorrectRitualSound.Play();
+                    }
+
+                    else
+                    {
+                        CorrectRitualSound.Play();
+                    }
+                }
+             }
 				// check if BaseMovements = GoalRitual, and play sound if correct, set isComplete to true
 				// else play bad sound, set isComplete to false
             }
-        }
 
         isLearning = false;
     }

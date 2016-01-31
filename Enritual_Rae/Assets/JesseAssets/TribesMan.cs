@@ -23,7 +23,7 @@ public class TribesMan : MonoBehaviour
     [SerializeField]
     private AudioSource CorrectRitualSound;
     [SerializeField]
-    private List<AudioSource> PatternSound;
+    private  AudioSource[] PatternSound = new AudioSource[6];
     private int wait = 0;
     //Constants for movement strings and sprite for
     //easier reading

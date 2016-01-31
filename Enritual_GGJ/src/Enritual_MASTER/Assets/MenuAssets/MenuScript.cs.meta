@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 444792fb2e424df4bb348e753bcea40e
+timeCreated: 1454257702
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - playText: {fileID: 11477736, guid: 2a442024114a11b42adb51119f2e1c5d, type: 2}
+  - exitText: {fileID: 11416090, guid: 45e0aaab13c42c14f8eb57247d72806d, type: 2}
+  - creditsText: {fileID: 11451182, guid: 51146862891d90b4f9e0b7e1babb79ce, type: 2}
+  - mainMenuText: {fileID: 11438148, guid: 9a662627eed3a634388e4b8f567431df, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

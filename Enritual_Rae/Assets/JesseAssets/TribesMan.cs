@@ -87,16 +87,22 @@ public class TribesMan : MonoBehaviour
 
 				if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.y.ToString()) {
                     TribeSprite.sprite = sprites[YSprite];
+                    PatternSound[0].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.m.ToString()) {
                     TribeSprite.sprite = sprites[MSprite];
+                    PatternSound[1].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.c.ToString()) {
                     TribeSprite.sprite = sprites[CSprite];
+                    PatternSound[2].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.a.ToString()) {
                     TribeSprite.sprite = sprites[ASprite];
-				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.jump.ToString()) {
+                    PatternSound[3].Play();
+                } else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.jump.ToString()) {
                     TribeSprite.sprite = sprites[JumpSprite];
+                    PatternSound[4].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.crouch.ToString()) {
                     TribeSprite.sprite = sprites[CrouchSprite];
+                    PatternSound[5].Play();
                 } else {
                     Debug.LogError("This is no known movement");
                 }

@@ -14,6 +14,7 @@ public class VillageCode : MonoBehaviour {
 	public List<GameObject> CompletionTriggerItems;
 	private List<ICompletionTrigger> CompletionTriggers;
 	private int wait = 0;
+	private bool TriggerFinished = false;
 
 	// Use this for initialization
 	void Start () {
@@ -27,20 +28,23 @@ public class VillageCode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (wait <= 0) {
-			wait = 20;
-			bool succeeded = true;
-			foreach (ICompletionTrigger completionTrigger in CompletionTriggers) {
-				if (completionTrigger.IsComplete() == false) {
-					// incomplete, failed!
-					succeeded = false;
+		if (!TriggerFinished) {
+			if (wait <= 0) {
+				wait = 20;
+				bool succeeded = true;
+				foreach (ICompletionTrigger completionTrigger in CompletionTriggers) {
+					if (completionTrigger.IsComplete () == false) {
+						// incomplete, failed!
+						succeeded = false;
+					}
 				}
+				if (succeeded) {
+					TriggerFinished = true;
+					Trigger.TriggerEvent ();
+				}
+			} else {
+				wait--;
 			}
-			if (succeeded) {
-				Trigger.TriggerEvent ();
-			}
-		} else {
-			wait--;
 		}
 	}
 }

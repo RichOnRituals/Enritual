@@ -88,22 +88,34 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 
 				if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.y.ToString()) {
 					TribeSprite.sprite = sprites[YSprite];
-					PatternSound[0].Play();
+					if (PatternSound[0] != null) {
+						PatternSound[0].Play();
+					}
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.m.ToString()) {
 					TribeSprite.sprite = sprites[MSprite];
-					PatternSound[1].Play();
+					if (PatternSound[1] != null) {
+						PatternSound[1].Play();
+					}
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.c.ToString()) {
 					TribeSprite.sprite = sprites[CSprite];
-					PatternSound[2].Play();
+					if (PatternSound[2] != null) {
+						PatternSound[2].Play();
+					}
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.a.ToString()) {
 					TribeSprite.sprite = sprites[ASprite];
-					PatternSound[3].Play();
+					if (PatternSound[3] != null) {
+						PatternSound[3].Play();
+					}
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.jump.ToString()) {
 					TribeSprite.sprite = sprites[JumpSprite];
-					PatternSound[4].Play();
+					if (PatternSound[4] != null) {
+						PatternSound[4].Play();
+					}
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.crouch.ToString()) {
 					TribeSprite.sprite = sprites[CrouchSprite];
-					PatternSound[5].Play();
+					if (PatternSound[5] != null) {
+						PatternSound[5].Play();
+					}
 				} else {
                     Debug.LogError("This is no known movement");
                 }
@@ -180,12 +192,18 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 
 				if (BaseMovements.Count != GoalRitual.Count)
 				{
-					IncorrectRitualSound.Play();
+					if (IncorrectRitualSound != null) {
+						IncorrectRitualSound.Play ();
+					}
 				} else {
 					if (BaseMovements.SequenceEqual(GoalRitual) == false) {
-						IncorrectRitualSound.Play();
+						if (IncorrectRitualSound != null) {
+							IncorrectRitualSound.Play ();
+						}
 					} else {
-						CorrectRitualSound.Play();
+						if (CorrectRitualSound != null) {
+							CorrectRitualSound.Play();
+						}
 					}
 				}
             }

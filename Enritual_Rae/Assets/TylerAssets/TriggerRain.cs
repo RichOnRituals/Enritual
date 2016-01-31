@@ -17,10 +17,11 @@ public class TriggerRain : MonoBehaviour, ITriggerable {
 	void Start() {
 		rain = gameObject.GetComponent<ParticleSystem> ();
 		emission = rain.emission;
+		emission.enabled = false;
 	}
 
 	// when fired, make something cool happen!
 	public void TriggerEvent() {
-		emission.enabled = !emission.enabled;
+		emission.enabled = true;
 	}
 }

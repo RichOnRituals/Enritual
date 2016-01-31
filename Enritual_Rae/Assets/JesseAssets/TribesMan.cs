@@ -17,7 +17,13 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
     [SerializeField]
     private int interval = 200;
     [SerializeField]
-    private float MaxInNetural = 4.0f;
+	private float MaxInNetural = 4.0f;
+	[SerializeField]
+	private AudioSource IncorrectRitualSound;
+	[SerializeField]
+	private AudioSource CorrectRitualSound;
+	[SerializeField]
+	private List<AudioSource> PatternSound;
     private int wait = 0;
     //Constants for movement strings and sprite for
     //easier reading
@@ -41,11 +47,12 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
     private bool isLearning;
     private MainCharacterScript playerscript;
     private MainCharacterScript.PlayerState lastPlayerState = MainCharacterScript.PlayerState.neutral;
-
+	private Transform myLight;
 
     void Start()
     {
-
+		myLight = transform.Find("LearningIcon");
+		myLight.gameObject.SetActive(false);
         if (area == null)
         {
             area = areaObject.GetComponent<LearningArea>();
@@ -80,18 +87,24 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 				PatternCounter++;
 
 				if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.y.ToString()) {
-                    TribeSprite.sprite = sprites[YSprite];
+					TribeSprite.sprite = sprites[YSprite];
+					PatternSound[0].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.m.ToString()) {
-                    TribeSprite.sprite = sprites[MSprite];
+					TribeSprite.sprite = sprites[MSprite];
+					PatternSound[1].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.c.ToString()) {
-                    TribeSprite.sprite = sprites[CSprite];
+					TribeSprite.sprite = sprites[CSprite];
+					PatternSound[2].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.a.ToString()) {
-                    TribeSprite.sprite = sprites[ASprite];
+					TribeSprite.sprite = sprites[ASprite];
+					PatternSound[3].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.jump.ToString()) {
-                    TribeSprite.sprite = sprites[JumpSprite];
+					TribeSprite.sprite = sprites[JumpSprite];
+					PatternSound[4].Play();
 				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.crouch.ToString()) {
-                    TribeSprite.sprite = sprites[CrouchSprite];
-                } else {
+					TribeSprite.sprite = sprites[CrouchSprite];
+					PatternSound[5].Play();
+				} else {
                     Debug.LogError("This is no known movement");
                 }
             } else {
@@ -141,7 +154,7 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
        if (shouldLearn)
 		{
 			if (LearnedMovement.Count == 0) {
-				//show light
+				myLight.gameObject.SetActive(true);
 			}
 			print ("Learned:" + lastPlayerState.ToString());
             LearnedMovement.Add(lastPlayerState.ToString());
@@ -158,13 +171,23 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
         if(isLearning)
 		{
 			print ("Ending learning");
+			myLight.gameObject.SetActive(false);
 			if (LearnedMovement != null && LearnedMovement.Count > 0)
             {
 				print ("new pattern:");
 				print (LearnedMovement);
                 BaseMovements = LearnedMovement;
-				// check if BaseMovements = GoalRitual, and play sound if correct, set isComplete to true
-				// else play bad sound, set isComplete to false
+
+				if (BaseMovements.Count != GoalRitual.Count)
+				{
+					IncorrectRitualSound.Play();
+				} else {
+					if (BaseMovements.SequenceEqual(GoalRitual) == false) {
+						IncorrectRitualSound.Play();
+					} else {
+						CorrectRitualSound.Play();
+					}
+				}
             }
         }
 

@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 3cdad4744505b466ca267cad8cc3a945
+timeCreated: 1454192265
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: MainTerrain
+    100002: MainTerrain_MeshPart0
+    100004: MainTerrain_MeshPart1
+    100006: MainTerrain_MeshPart2
+    100008: MainTerrain_MeshPart3
+    100010: //RootNode
+    100012: RiverToPool
+    100014: RiverToVillage1
+    100016: RiverToVillage2
+    100018: TrickleFromHomeVillage
+    400000: MainTerrain
+    400002: MainTerrain_MeshPart0
+    400004: MainTerrain_MeshPart1
+    400006: MainTerrain_MeshPart2
+    400008: MainTerrain_MeshPart3
+    400010: //RootNode
+    400012: RiverToPool
+    400014: RiverToVillage1
+    400016: RiverToVillage2
+    400018: TrickleFromHomeVillage
+    2300000: MainTerrain_MeshPart0
+    2300002: MainTerrain_MeshPart1
+    2300004: MainTerrain_MeshPart2
+    2300006: MainTerrain_MeshPart3
+    2300008: RiverToPool
+    2300010: RiverToVillage1
+    2300012: RiverToVillage2
+    2300014: TrickleFromHomeVillage
+    3300000: MainTerrain_MeshPart0
+    3300002: MainTerrain_MeshPart1
+    3300004: MainTerrain_MeshPart2
+    3300006: MainTerrain_MeshPart3
+    3300008: RiverToPool
+    3300010: RiverToVillage1
+    3300012: RiverToVillage2
+    3300014: TrickleFromHomeVillage
+    4300000: RiverToVillage2
+    4300002: TrickleFromHomeVillage
+    4300004: RiverToVillage1
+    4300006: RiverToPool
+    4300008: MainTerrain_MeshPart0
+    4300010: MainTerrain_MeshPart1
+    4300012: MainTerrain_MeshPart2
+    4300014: MainTerrain_MeshPart3
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

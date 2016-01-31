@@ -23,7 +23,6 @@ public class MainCharacterScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print(Input.GetAxis("Vertical"));
 		if (Input.GetAxis ("Horizontal") != 0) {
 			UpdateWalking ();
 		} else if (Input.GetAxis ("Vertical") != 0) {

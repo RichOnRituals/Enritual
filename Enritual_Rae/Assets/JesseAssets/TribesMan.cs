@@ -8,18 +8,17 @@ public class TribesMan : MonoBehaviour
     [SerializeField]
     private Sprite[] sprites;
     [SerializeField]
-    private string[] BaseMovements;
-    [SerializeField]
-    private string[] LearnedMovement = new string[MovementLimit];
-    [SerializeField]
-    private int MovementCounter = 0;
+    private List<string> BaseMovements;
+    private List<string> LearnedMovement;
     [SerializeField]
     private GameObject areaObject;
     [SerializeField]
-    private string[] GoalRitual;
+	private List<string> GoalRitual;
     [SerializeField]
     private int interval = 200;
-    private int wait = 200;
+    [SerializeField]
+    private float MaxInNetural = 4.0f;
+    private int wait = 0;
     //Constants for movement strings and sprite for
     //easier reading
     private const int MovementLimit = 10;
@@ -27,30 +26,30 @@ public class TribesMan : MonoBehaviour
     private const string Mmove = "2";
     private const string Cmove = "3";
     private const string Amove = "4";
-    private const string jump = "5";
+    private const string jump =  "5";
 	private const string crouch = "6";
-	private const int NeturalSprite = 0;
+    private const string netural = "0";
+
+	private const int NeutralSprite = 0;
     private const int YSprite = 1;
     private const int MSprite = 2;
     private const int CSprite = 3;
     private const int ASprite = 4;
     private const int JumpSprite = 5;
     private const int CrouchSprite = 6;
-    //String to check only for certain key values
-    private string[] allowedkeys = { Ymove, Mmove, Cmove, Amove, jump, crouch };
-    private Transform tribesman = null;
+
     private LearningArea area = null;
     private GameObject player = null;
     private SpriteRenderer TribeSprite;
-    private int PatternCounter;
+    private int PatternCounter = -1;
+	private float TimeInNeutral;
+    private bool isLearning;
+    private MainCharacterScript playerscript;
+    private MainCharacterScript.PlayerState lastPlayerState = MainCharacterScript.PlayerState.neutral;
 
-    
+
     void Start()
     {
-        if (tribesman == null)
-        {
-            tribesman = gameObject.GetComponent<Transform>();
-        }
 
         if (area == null)
         {
@@ -60,6 +59,7 @@ public class TribesMan : MonoBehaviour
         if(player == null)
         {
             player = GameObject.FindWithTag("Player");
+            playerscript = player.GetComponent<MainCharacterScript>();
         }
 
         if(TribeSprite == null)
@@ -71,80 +71,118 @@ public class TribesMan : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (area.isLearning == false && BaseMovements.Length != 0)
+        if (area.isLearning == false && BaseMovements.Count != 0)
         {
+            endLearning();
             if ( wait <= 0)
             {
                 wait = interval;
 
-                if (BaseMovements[PatternCounter].ToLower() == Ymove) {
+				if (PatternCounter >= (BaseMovements.Count - 1))
+				{
+					PatternCounter = -1;
+				}
+				PatternCounter++;
+
+				if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.y.ToString()) {
                     TribeSprite.sprite = sprites[YSprite];
-                    PatternCounter++;
-                } else if (BaseMovements[PatternCounter].ToLower() == Mmove) {
+				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.m.ToString()) {
                     TribeSprite.sprite = sprites[MSprite];
-                    PatternCounter++;
-                } else if (BaseMovements[PatternCounter].ToLower() == Cmove) {
+				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.c.ToString()) {
                     TribeSprite.sprite = sprites[CSprite];
-                    PatternCounter++;
-                } else if (BaseMovements[PatternCounter].ToLower() == Amove) {
+				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.a.ToString()) {
                     TribeSprite.sprite = sprites[ASprite];
-                    PatternCounter++;
-                } else if (BaseMovements[PatternCounter].ToLower() == jump) {
+				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.jump.ToString()) {
                     TribeSprite.sprite = sprites[JumpSprite];
-                    PatternCounter++;
-                } else if (BaseMovements[PatternCounter].ToLower() == crouch) {
+				} else if (BaseMovements[PatternCounter].ToLower() == MainCharacterScript.PlayerState.crouch.ToString()) {
                     TribeSprite.sprite = sprites[CrouchSprite];
-                    PatternCounter++;
                 } else {
                     Debug.LogError("This is no known movement");
-                }
-
-                if (PatternCounter >= BaseMovements.Length)
-                {
-                    PatternCounter = 0;
                 }
             } else {
                 wait--;
             }
         } else if (area.isLearning == true) {
-            TribeSprite.sprite = sprites[NeturalSprite];
+            if (!isLearning )
+            {
+                startLearning();
+            }
             doLearning();
-		} else {
+		}
+        else {
             Debug.LogError("There is no movements for the tribesman");
 		}
 	}
 
     public void doLearning()
     {
-        if (Input.anyKey && MovementCounter < MovementLimit && Input.inputString.Length > 0)
+        bool shouldLearn = false;
+		MainCharacterScript.PlayerState currentPlayerState = playerscript.GetState ();
+
+		if (currentPlayerState == MainCharacterScript.PlayerState.neutral)
         {
-            foreach (string x in allowedkeys)
+            TimeInNeutral += Time.deltaTime;
+            if (TimeInNeutral >= MaxInNetural)
             {
-                if (x.Contains(Input.inputString))
-                {
-                    LearnedMovement[MovementCounter] = Input.inputString.ToLower();
-                    MovementCounter++;
-					break;
-                    //add if/else statement to play the player sprite movements
-                }
+                Debug.Log("Player has been too long in netural");
+                endLearning();
+                return;
+            }
+        }
+        else
+        {
+            if (!isLearning)
+           {
+              startLearning();
+           }
+
+			if(currentPlayerState != MainCharacterScript.PlayerState.walking && lastPlayerState != currentPlayerState)
+            {
+                shouldLearn = true;
+				lastPlayerState = currentPlayerState;
+            }
+       }
+
+       if (shouldLearn)
+		{
+			if (LearnedMovement.Count == 0) {
+				//show light
+			}
+			print ("Learned:" + lastPlayerState.ToString());
+            LearnedMovement.Add(lastPlayerState.ToString());
+       }
+
+        if (LearnedMovement.Count >= MovementLimit)
+        {
+            endLearning();
+        }
+    }
+
+    void endLearning()
+	{
+        if(isLearning)
+		{
+			print ("Ending learning");
+			if (LearnedMovement != null && LearnedMovement.Count > 0)
+            {
+				print ("new pattern:");
+				print (LearnedMovement);
+                BaseMovements = LearnedMovement;
+				// check if BaseMovements = GoalRitual, and play sound if correct, set "complete" to true
+				// else play bad sound, set "complete" to false
             }
         }
 
+        isLearning = false;
+    }
 
-		BaseMovements = LearnedMovement;
-        if (MovementCounter >= MovementLimit)
-        {
-            Debug.Log(MovementCounter);
-            Debug.Log("Limit reached");
-            MovementCounter = 0;
-//            if (LearnedMovement.SequenceEqual(GoalRitual) == true)
-//            {
-//                Debug.Log("You win");
-//                BaseMovements = LearnedMovement;
-//            }
-
-            area.isLearning = false;
-        }
+    void startLearning()
+    {
+		print ("Starting learning");
+		TimeInNeutral = 0;
+        LearnedMovement = new List<string>();
+        isLearning = true;
+        TribeSprite.sprite = sprites[NeutralSprite];
     }
 
 }

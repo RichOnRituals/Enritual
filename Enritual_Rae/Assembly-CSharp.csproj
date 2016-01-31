@@ -47,6 +47,9 @@
   <ItemGroup>
      <Compile Include="Assets\JesseAssets\LearningArea.cs" />
      <Compile Include="Assets\JesseAssets\TribesMan.cs" />
+     <Compile Include="Assets\Scripts\ExportTerrain.cs" />
+     <Compile Include="Assets\Scripts\RainTrigger.cs" />
+     <Compile Include="Assets\Scripts\TriggerLevel2.cs" />
      <Compile Include="Assets\TylerAssets\AnimateSprite.cs" />
      <Compile Include="Assets\TylerAssets\BasicPlayer.cs" />
      <Compile Include="Assets\TylerAssets\FollowBillboard.cs" />

@@ -57,6 +57,7 @@
      <Compile Include="Assets\TylerAssets\ITriggerable.cs" />
      <Compile Include="Assets\TylerAssets\MainCharacterScript.cs" />
      <Compile Include="Assets\TylerAssets\MouseAimCamera.cs" />
+     <Compile Include="Assets\TylerAssets\Pig.cs" />
      <Compile Include="Assets\TylerAssets\TriggerLight.cs" />
      <Compile Include="Assets\TylerAssets\TriggerRain.cs" />
      <Compile Include="Assets\TylerAssets\TriggerRiver.cs" />

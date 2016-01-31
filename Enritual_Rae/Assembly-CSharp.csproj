@@ -59,6 +59,7 @@
      <Compile Include="Assets\TylerAssets\MouseAimCamera.cs" />
      <Compile Include="Assets\TylerAssets\TriggerLight.cs" />
      <Compile Include="Assets\TylerAssets\TriggerRain.cs" />
+     <Compile Include="Assets\TylerAssets\TriggerRiver.cs" />
      <Compile Include="Assets\TylerAssets\TylerThirdPersonCharacter.cs" />
      <Compile Include="Assets\TylerAssets\TylerThirdPersonUserControl.cs" />
      <Compile Include="Assets\TylerAssets\VillageCode.cs" />

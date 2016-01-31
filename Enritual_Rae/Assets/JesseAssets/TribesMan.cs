@@ -186,8 +186,6 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 			myLight.gameObject.SetActive(false);
 			if (LearnedMovement != null && LearnedMovement.Count > 0)
             {
-				print ("new pattern:");
-				print (LearnedMovement);
                 BaseMovements = LearnedMovement;
 
 				if (BaseMovements.Count != GoalRitual.Count)
@@ -196,7 +194,14 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 						IncorrectRitualSound.Play ();
 					}
 				} else {
-					if (BaseMovements.SequenceEqual(GoalRitual) == false) {
+					bool succeeded = true;
+					// have to do this way instead of using sequence because they may not be lowercase
+					for (int i = 0; i < BaseMovements.Count; i++) {
+						if (BaseMovements [i].ToLower () != GoalRitual [i].ToLower ()) {
+							succeeded = false;
+						}
+					}
+					if (!succeeded) {
 						if (IncorrectRitualSound != null) {
 							IncorrectRitualSound.Play ();
 						}
@@ -204,6 +209,7 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 						if (CorrectRitualSound != null) {
 							CorrectRitualSound.Play();
 						}
+						isComplete = true;
 					}
 				}
             }
@@ -214,7 +220,6 @@ public class TribesMan : MonoBehaviour, ICompletionTrigger
 
     void startLearning()
     {
-		isComplete = true;
 		print ("Starting learning");
 		TimeInNeutral = 0;
         LearnedMovement = new List<string>();
